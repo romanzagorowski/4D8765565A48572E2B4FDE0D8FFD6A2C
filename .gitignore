@@ -4,3 +4,4 @@ mailbox
 history/
 config/
 profiles/
+*.dat
