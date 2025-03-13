@@ -1,6 +1,5 @@
-EURUSD.,Weekly
 EURUSD.,Monthly
-EURUSD.,H1
-EURUSD.,Daily
+EURUSD.,M15
+EURUSD._BBB,M15 (offline)
 EURUSD.,Weekly
-EURUSD._BBB,Weekly (offline)
+EURUSD.,Daily

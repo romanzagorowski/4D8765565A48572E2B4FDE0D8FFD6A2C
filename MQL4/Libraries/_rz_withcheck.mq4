@@ -19,7 +19,7 @@
 //    return(value+value2);
 //   }
 //+------------------------------------------------------------------+
-bool ObjectSetDoubleWithCheck(long chartId, string objectName, ENUM_OBJECT_PROPERTY_DOUBLE propId, int propModifier, double propValue)
+bool ObjectSetDoubleWC(long chartId, string objectName, ENUM_OBJECT_PROPERTY_DOUBLE propId, int propModifier, double propValue)
 export
 {
     bool set = ObjectSetDouble(0, objectName, propId, propModifier, propValue);
@@ -41,7 +41,7 @@ export
     return set;
 }
 //+------------------------------------------------------------------+
-bool ObjectSetIntegerWithCheck(long chartId, string objectName, ENUM_OBJECT_PROPERTY_INTEGER propId, int propModifier, long propValue)
+bool ObjectSetIntegerWC(long chartId, string objectName, ENUM_OBJECT_PROPERTY_INTEGER propId, int propModifier, long propValue)
 export
 {
     bool set = ObjectSetInteger(0, objectName, propId, propModifier, propValue);
@@ -64,7 +64,7 @@ export
     return set;
 }
 //+------------------------------------------------------------------+
-bool ObjectSetIntegerWithCheck(long chartId, string objectName, ENUM_OBJECT_PROPERTY_INTEGER propId, long propValue)
+bool ObjectSetIntegerWC(long chartId, string objectName, ENUM_OBJECT_PROPERTY_INTEGER propId, long propValue)
 export
 {
     bool set = ObjectSetInteger(0, objectName, propId, propValue);
@@ -79,7 +79,7 @@ export
     return set;
 }
 //+------------------------------------------------------------------+
-bool ObjectSetStringWithCheck(long chartId, string objectName, ENUM_OBJECT_PROPERTY_STRING propId, const string propValue)
+bool ObjectSetStringWC(long chartId, string objectName, ENUM_OBJECT_PROPERTY_STRING propId, const string propValue)
 export
 {
     bool set = ObjectSetString(chartId, objectName, propId, propValue);
@@ -94,7 +94,7 @@ export
     return set;
 }
 //+------------------------------------------------------------------+
-bool ObjectDeleteWithCheck(string objectName)
+bool ObjectDeleteWC(string objectName)
 export
 {
     bool deleted = ObjectDelete(objectName);
@@ -109,7 +109,7 @@ export
     return deleted;
 }
 //+------------------------------------------------------------------+
-int ObjectTypeWithCheck(string objectName)
+int ObjectTypeWC(string objectName)
 export
 {
     int objectType = ObjectType(objectName);
@@ -124,7 +124,7 @@ export
     return objectType;
 }
 //+------------------------------------------------------------------+
-int ObjectsTotalWithCheck()
+int ObjectsTotalWC()
 export
 {
     const int objectsTotal = ObjectsTotal();
@@ -139,7 +139,7 @@ export
     return objectsTotal;
 }
 //+------------------------------------------------------------------+
-string ObjectNameWithCheck(int index)
+string ObjectNameWC(int index)
 export
 {
     const string objectName = ObjectName(index);
@@ -154,7 +154,7 @@ export
     return objectName;
 }
 //+------------------------------------------------------------------+
-bool ObjectCreateWithCheck(string objectName, ENUM_OBJECT objectType, int subWindow, datetime time1, double price1, datetime time2, double price2)
+bool ObjectCreateWC(string objectName, ENUM_OBJECT objectType, int subWindow, datetime time1, double price1, datetime time2, double price2)
 export
 {
     bool created = ObjectCreate(objectName, objectType, 0, time1, price1, time2, price2);
@@ -174,5 +174,54 @@ export
     }
 
     return created;
+}
+//+------------------------------------------------------------------+
+bool OrderDeleteWC(int ticket, color arrow_color=clrNONE)
+export
+{
+    const bool deleted = OrderDelete(ticket, arrow_color);
+    if(!deleted)
+    {
+        const int error = GetLastError();
+        Print("ERROR: OrderDelete() failed. ticket=", ticket, ", error=", error, ", description='", ErrorDescription(error), "'");
+    }
+    return deleted;
+}
+//+------------------------------------------------------------------+
+bool OrderSelectWC(int index, int select, int pool)
+export
+{
+    const bool selected = OrderSelect(index, select, pool);
+    if(!selected)
+    {
+        const int error = GetLastError();
+        Print("ERROR: OrderSelect() has failed. index=", index, ", select=", select, "pool=", pool, ", error=", error, ", description='", ErrorDescription(error), "'");
+    }
+    return selected;
+}
+
+//+------------------------------------------------------------------+
+bool OrderCloseWC(int ticket, double lots, double price, int slippage)
+export
+{
+    const bool closed = OrderClose(ticket, lots, price, slippage);
+    if(!closed)
+    {
+        const int error = GetLastError();
+        Print("ERROR: OrderClose() has failed. ticket=", ticket, ", lots=", lots, ", price=", price, ", slippage=", slippage, ", error=", error, ", description='", ErrorDescription(error), "'");
+    }
+    return closed;
+}
+//+------------------------------------------------------------------+
+bool OrderSendWC(string symbol, int cmd, double volume, double price, int slippage, double stoploss, double takeprofit, string comment = NULL, int magic = 0)
+export
+{
+    const bool sent = OrderSend(symbol, cmd, volume, price, slippage, stoploss, takeprofit, comment, magic);
+    if(!sent)
+    {
+        const int error = GetLastError();
+        Print("ERROR: OrderSend() has failed. symbol=", symbol, ", cmd=", cmd, ", volume=", volume, ", price=", price, ", slippage=", slippage, ", stoploss=", stoploss, ", takeproift=", takeprofit, ", comment='", comment, "', magic=", magic, ", error=", error, ", description='", ErrorDescription(error), "'");
+    }
+    return sent;
 }
 //+------------------------------------------------------------------+
