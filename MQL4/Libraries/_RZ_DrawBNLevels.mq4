@@ -7,6 +7,12 @@
 #property version   "1.00"
 #property strict
 
+/*
+    2025-11-18
+    If the price param is 0 the script removes ALL big number lines and returns.
+    If a line already exists on a chart, its it removed and recreated with new parameters.
+*/
+
 #include <_rz_withcheck.mqh>
 
 //+------------------------------------------------------------------+
@@ -42,14 +48,15 @@ void _RZ_DrawBNLevels(
 )
 export
 {
-//---
     const string objectPrefix = "_RZ_DrawBNLevels_";
-    Print("objectPrefix='", objectPrefix, "'");
-    DeleteObjectsByPrefix(objectPrefix);
-//---
-    // if thePoints value is 0 we only delete existing levels...
+
     if(0 == thePoints)
+    {
+        Print("objectPrefix='", objectPrefix, "'");
+        DeleteObjectsByPrefix(objectPrefix);
         return;
+    }
+
 //---
     const double chartHH = GetChartHighestHigh();
     const double chartLL = GetChartLowestLow();
@@ -64,7 +71,7 @@ export
     
     const int  startValuePoints = ((chartHHPointsInt / thePoints) + 1) * thePoints;
     const int finishValuePoints = ((chartLLPointsInt / thePoints) - 1) * thePoints;
-   
+/*   
     Print("chartHH=", DoubleToString(chartHH, Digits));
     Print("chartLL=", DoubleToString(chartLL, Digits));
     Print("pointValue=", DoubleToString(pointValue, Digits));
@@ -74,10 +81,16 @@ export
     Print("chartLLPointsInt=", chartLLPointsInt);
     Print("startValuePoints=", startValuePoints);
     Print("finishValuePoints=", finishValuePoints);
-  
+*/  
     for(int i = startValuePoints; i >= finishValuePoints; i -= thePoints)
     {
         const string objectName = objectPrefix + IntegerToString(i);
+        
+        if(ObjectFind(objectName) > -1)
+        {
+            ObjectDeleteWC(objectName);
+        }
+        
         const double price1 = NormalizeDouble(i * pointValue, Digits);
         bool created = ObjectCreateWC(
             objectName,
@@ -93,6 +106,9 @@ export
             ObjectSetIntegerWC(0, objectName, OBJPROP_WIDTH, theWidth);
             ObjectSetIntegerWC(0, objectName, OBJPROP_SELECTABLE, false);
             ObjectSetIntegerWC(0, objectName, OBJPROP_BACK, true);
+            
+            const string objectDescription = DoubleToStr(price1, Digits);
+            ObjectSetStringWC(0, objectName, OBJPROP_TEXT, objectDescription);
         }
     }
 }
