@@ -22,12 +22,12 @@ double GetChartLowestLow()
 //+------------------------------------------------------------------+
 void DeleteObjectsByPrefix(string prefix)
 {
-    for(int i = ObjectsTotalWithCheck() - 1; i >= 0; --i)
+    for(int i = ObjectsTotalWC() - 1; i >= 0; --i)
     {
-        const string objectName = ObjectNameWithCheck(i);
+        const string objectName = ObjectNameWC(i);
         if(prefix == StringSubstr(objectName, 0, StringLen(prefix)))
         {
-            ObjectDeleteWithCheck(objectName);
+            ObjectDeleteWC(objectName);
         }
     }
 }
@@ -79,7 +79,7 @@ export
     {
         const string objectName = objectPrefix + IntegerToString(i);
         const double price1 = NormalizeDouble(i * pointValue, Digits);
-        bool created = ObjectCreateWithCheck(
+        bool created = ObjectCreateWC(
             objectName,
             OBJ_HLINE,
             0,
@@ -88,11 +88,11 @@ export
         );
         if(created)
         {
-            ObjectSetIntegerWithCheck(0, objectName, OBJPROP_COLOR, theColor);
-            ObjectSetIntegerWithCheck(0, objectName, OBJPROP_STYLE, theStyle);
-            ObjectSetIntegerWithCheck(0, objectName, OBJPROP_WIDTH, theWidth);
-            ObjectSetIntegerWithCheck(0, objectName, OBJPROP_SELECTABLE, false);
-            ObjectSetIntegerWithCheck(0, objectName, OBJPROP_BACK, true);
+            ObjectSetIntegerWC(0, objectName, OBJPROP_COLOR, theColor);
+            ObjectSetIntegerWC(0, objectName, OBJPROP_STYLE, theStyle);
+            ObjectSetIntegerWC(0, objectName, OBJPROP_WIDTH, theWidth);
+            ObjectSetIntegerWC(0, objectName, OBJPROP_SELECTABLE, false);
+            ObjectSetIntegerWC(0, objectName, OBJPROP_BACK, true);
         }
     }
 }
