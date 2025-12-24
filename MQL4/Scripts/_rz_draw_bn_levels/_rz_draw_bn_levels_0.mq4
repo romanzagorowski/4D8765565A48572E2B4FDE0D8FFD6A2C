@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                       _rz_draw_bn_levels_500.mq4 |
+//|                                         _rz_draw_bn_levels_0.mq4 |
 //|                                     roman.zagorowski@hotmail.com |
 //+------------------------------------------------------------------+
 #property copyright "roman.zagorowski@hotmail.com"
@@ -7,8 +7,8 @@
 #property strict
 #property script_show_inputs
 //--- input parameters
-input int      thePoints=500;
-input color    theColor=clrDimGray;
+input int      thePoints=0;
+input color    theColor=clrLightGray;
 input ENUM_LINE_STYLE theStyle=STYLE_DOT;
 input int      theWidth=1;
 input double   theTopValue=0.0;
