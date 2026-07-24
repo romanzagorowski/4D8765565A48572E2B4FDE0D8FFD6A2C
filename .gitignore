@@ -3,5 +3,6 @@
 mailbox
 history/
 config/
-profiles/
+profiles/lastprofile.ini
+profiles/indicators.dat
 *.dat
