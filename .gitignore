@@ -6,3 +6,7 @@ config/
 profiles/lastprofile.ini
 profiles/indicators.dat
 *.dat
+templates/OptimizationReport.htm
+templates/Statement.htm
+templates/StatementDetailed.htm
+templates/StrategyTester.htm
